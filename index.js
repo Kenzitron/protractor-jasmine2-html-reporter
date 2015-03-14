@@ -41,20 +41,22 @@ function getQualifiedFilename(path, filename, separator) {
     return path + filename;
 }
 function rmdir(dir) {
-    var list = fs.readdirSync(dir);
-    for(var i = 0; i < list.length; i++) {
-        var filename = path.join(dir, list[i]);
-        var stat = fs.statSync(filename);
+    try {
+        var list = fs.readdirSync(dir);
+        for (var i = 0; i < list.length; i++) {
+            var filename = path.join(dir, list[i]);
+            var stat = fs.statSync(filename);
 
-        if(stat.isDirectory()) {
-            // rmdir recursively
-            rmdir(filename);
-        } else {
-            // rm fiilename
-            fs.unlinkSync(filename);
+            if (stat.isDirectory()) {
+                // rmdir recursively
+                rmdir(filename);
+            } else {
+                // rm fiilename
+                fs.unlinkSync(filename);
+            }
         }
-    }
-    fs.rmdirSync(dir);
+        fs.rmdirSync(dir);
+    }catch (e) { errors.push('  Remove folder attempt: ' + e.message); }
 };
 
 function Jasmine2HTMLReporter(options) {
