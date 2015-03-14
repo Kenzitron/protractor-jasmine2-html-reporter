@@ -40,6 +40,12 @@ function getQualifiedFilename(path, filename, separator) {
     }
     return path + filename;
 }
+function log(str) {
+    var con = global.console || console;
+    if (con && con.log) {
+        con.log(str);
+    }
+}
 function rmdir(dir) {
     try {
         var list = fs.readdirSync(dir);
@@ -56,7 +62,7 @@ function rmdir(dir) {
             }
         }
         fs.rmdirSync(dir);
-    }catch (e) { errors.push('  Remove folder attempt: ' + e.message); }
+    }catch (e) { log("problem trying to remove a folder"); }
 };
 
 function Jasmine2HTMLReporter(options) {
