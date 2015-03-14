@@ -71,7 +71,7 @@ function Jasmine2HTMLReporter(options) {
     self.useDotNotation = options.useDotNotation === UNDEFINED ? true : options.useDotNotation;
     self.consolidate = options.consolidate === UNDEFINED ? true : options.consolidate;
     self.consolidateAll = self.consolidate !== false && (options.consolidateAll === UNDEFINED ? true : options.consolidateAll);
-    self.filePrefix = options.filePrefix || (self.consolidateAll ? 'htmlResults' : 'htmlResults-');
+    self.filePrefix = options.filePrefix || (self.consolidateAll ? 'htmlReport' : 'htmlReport-');
 
     var suites = [],
         currentSuite = null,
