@@ -1,0 +1,31 @@
+{
+  "name": "protractor-jasmine2-html-reporter",
+  "version": "0.0.0",
+  "description": "HTML reporter for Jasmine2 and Protractor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kenzitron/protractor-jasmine2-html-reporter"
+  },
+  "keywords": [
+    "jasmine2",
+    "protractor",
+    "reporter",
+    "html",
+    "test"
+  ],
+  "author": "Alejandro Asensio <alejandro@kenzilab.com> (http://www.kenzilab.com/)",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Kenzitron/protractor-jasmine2-html-reporter/issues"
+  },
+  "dependencies": {
+    "hat": "0.0.3",
+    "lodash": "^3.0.0",
+    "mkdirp": "^0.5.0",
+    "string.prototype.startswith": "^0.2.0"
+  }
+}
