@@ -15,7 +15,10 @@
     "protractor",
     "reporter",
     "html",
-    "test"
+    "test",
+    "screenshots",
+    "end2end",
+    "bdd"
   ],
   "author": "Alejandro Asensio <alejandro@kenzilab.com> (http://www.kenzilab.com/)",
   "license": "BSD-2-Clause",
