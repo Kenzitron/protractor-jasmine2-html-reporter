@@ -75,6 +75,7 @@ function Jasmine2HTMLReporter(options) {
     options = options || {};
     self.takeScreenshots = options.takeScreenshots === UNDEFINED ? true : options.takeScreenshots;
     self.savePath = options.savePath || '';
+    self.takeScreenshotsOnlyOnFailures = options.takeScreenshotsOnlyOnFailures === UNDEFINED ? false : options.takeScreenshotsOnlyOnFailures;
     self.screenshotsFolder = (options.screenshotsFolder || 'screenshots').replace(/^\//, '') + '/';
     self.useDotNotation = options.useDotNotation === UNDEFINED ? true : options.useDotNotation;
     self.consolidate = options.consolidate === UNDEFINED ? true : options.consolidate;
@@ -145,8 +146,9 @@ function Jasmine2HTMLReporter(options) {
         if (isFailed(spec)) { spec._suite._failures++; }
         totalSpecsExecuted++;
 
-        //Take screenshots
-        if (self.takeScreenshots) {
+        //Take screenshots taking care of the configuration
+        if ((self.takeScreenshots && !self.takeScreenshotsOnlyOnFailures) ||
+            (self.takeScreenshots && self.takeScreenshotsOnlyOnFailures && isFailed(spec))) {
             spec.screenshot = hat() + '.png';
             browser.takeScreenshot().then(function (png) {
                 browser.getCapabilities().then(function (capabilities) {
