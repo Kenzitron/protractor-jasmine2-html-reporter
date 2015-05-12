@@ -1,6 +1,6 @@
 {
   "name": "protractor-jasmine2-html-reporter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "HTML reporter for Jasmine2 and Protractor",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "reporter",
     "html",
     "test",
+    "functional testing",
     "screenshots",
     "end2end",
     "bdd"
