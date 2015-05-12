@@ -75,7 +75,7 @@ function Jasmine2HTMLReporter(options) {
     options = options || {};
     self.takeScreenshots = options.takeScreenshots === UNDEFINED ? true : options.takeScreenshots;
     self.savePath = options.savePath || '';
-    self.screenshotsFolder = (options.screenshotsFolder || 'screenshots') + '/';
+    self.screenshotsFolder = (options.screenshotsFolder || 'screenshots').replace(/^\//, '') + '/';
     self.useDotNotation = options.useDotNotation === UNDEFINED ? true : options.useDotNotation;
     self.consolidate = options.consolidate === UNDEFINED ? true : options.consolidate;
     self.consolidateAll = self.consolidate !== false && (options.consolidateAll === UNDEFINED ? true : options.consolidateAll);
