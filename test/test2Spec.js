@@ -1,4 +1,5 @@
 describe('SPEC 2', function() {
+
     it('2 should add a todo', function() {
         browser.get('http://www.angularjs.org');
 

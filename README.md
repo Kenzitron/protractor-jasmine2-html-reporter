@@ -74,6 +74,19 @@ If you disable screenshots, obviously this option will not be taken into account
 
 Default is <code>false</code> (So screenshots are always generated)
 
+
+### FixedScreenshotName (optional)
+
+Choose between random names and fixed ones.
+
+<pre><code>jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
+   savePath: './test/reports/',
+   fixedScreenshotName: true
+}));</code></pre>
+
+Default is <code>false</code>
+
+
 ### FilePrefix (optional)
 
 Filename for html report.

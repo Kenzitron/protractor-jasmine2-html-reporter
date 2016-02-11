@@ -8,7 +8,10 @@ require('string.prototype.startswith');
 
 var UNDEFINED, exportObject = exports;
 
-
+var sanitizeFilename = function(name) {
+    name = name.replace(/\s+/gi, '-'); // Replace white space with dash
+    return name.replace(/[^a-zA-Z0-9\-]/gi, ''); // Strip any special charactere
+}
 function trim(str) { return str.replace(/^\s+/, "" ).replace(/\s+$/, "" ); }
 function elapsed(start, end) { return (end - start)/1000; }
 function isFailed(obj) { return obj.status === "failed"; }
@@ -78,6 +81,7 @@ function Jasmine2HTMLReporter(options) {
     self.takeScreenshotsOnlyOnFailures = options.takeScreenshotsOnlyOnFailures === UNDEFINED ? false : options.takeScreenshotsOnlyOnFailures;
     self.screenshotsFolder = (options.screenshotsFolder || 'screenshots').replace(/^\//, '') + '/';
     self.useDotNotation = options.useDotNotation === UNDEFINED ? true : options.useDotNotation;
+    self.fixedScreenshotName = options.fixedScreenshotName === UNDEFINED ? false : options.fixedScreenshotName;
     self.consolidate = options.consolidate === UNDEFINED ? true : options.consolidate;
     self.consolidateAll = self.consolidate !== false && (options.consolidateAll === UNDEFINED ? true : options.consolidateAll);
     self.filePrefix = options.filePrefix || (self.consolidateAll ? 'htmlReport' : 'htmlReport-');
@@ -149,7 +153,11 @@ function Jasmine2HTMLReporter(options) {
         //Take screenshots taking care of the configuration
         if ((self.takeScreenshots && !self.takeScreenshotsOnlyOnFailures) ||
             (self.takeScreenshots && self.takeScreenshotsOnlyOnFailures && isFailed(spec))) {
-            spec.screenshot = hat() + '.png';
+            if (!self.fixedScreenshotName)
+                spec.screenshot = hat() + '.png';
+            else
+                spec.screenshot = sanitizeFilename(spec.description) + '.png';
+
             browser.takeScreenshot().then(function (png) {
                 browser.getCapabilities().then(function (capabilities) {
                     var screenshotPath;
