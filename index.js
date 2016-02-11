@@ -8,7 +8,7 @@ require('string.prototype.startswith');
 
 var UNDEFINED, exportObject = exports;
 
-var sanitizeFilename = function(name) {
+function sanitizeFilename(name){
     name = name.replace(/\s+/gi, '-'); // Replace white space with dash
     return name.replace(/[^a-zA-Z0-9\-]/gi, ''); // Strip any special charactere
 }
@@ -65,8 +65,8 @@ function rmdir(dir) {
             }
         }
         fs.rmdirSync(dir);
-    }catch (e) { log("problem trying to remove a folder"); }
-};
+    }catch (e) { log("problem trying to remove a folder:" + dir); }
+}
 
 function Jasmine2HTMLReporter(options) {
 
@@ -90,7 +90,7 @@ function Jasmine2HTMLReporter(options) {
         currentSuite = null,
         totalSpecsExecuted = 0,
         totalSpecsDefined,
-    // when use use fit, jasmine never calls suiteStarted / suiteDone, so make a fake one to use
+        // when use use fit, jasmine never calls suiteStarted / suiteDone, so make a fake one to use
         fakeFocusedSuite = {
             id: 'focused',
             description: 'focused specs',
