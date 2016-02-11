@@ -271,8 +271,8 @@ function Jasmine2HTMLReporter(options) {
             html += specAsHtml(spec);
                 html += '<div class="resume">';
                 if (spec.screenshot !== UNDEFINED){
-                    html += '<a href="' + self.screenshotsFolder + '/' + spec.screenshot + '">';
-                    html += '<img src="' + self.screenshotsFolder + '/' + spec.screenshot + '" width="100" height="100" />';
+                    html += '<a href="' + self.screenshotsFolder + spec.screenshot + '">';
+                    html += '<img src="' + self.screenshotsFolder + spec.screenshot + '" width="100" height="100" />';
                     html += '</a>';
                 }
                 html += '<br />';
