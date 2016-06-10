@@ -115,5 +115,7 @@ This option, if false, will not delete the reports or screenshots before each te
 
 <pre><code>jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
    savePath: './test/reports/',
-   cleanDestination: true
+   cleanDestination: false
 }));</code></pre>
+
+Default is <code>true</code>
