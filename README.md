@@ -108,3 +108,14 @@ This option allow you to create diferent HTML for each test suite.
 }));</code></pre>
 
 Default is <code>false</code>
+
+### CleanDestination (optional)
+
+This option, if false, will not delete the reports or screenshots before each test run. 
+
+<pre><code>jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
+   savePath: './test/reports/',
+   cleanDestination: false
+}));</code></pre>
+
+Default is <code>true</code>
