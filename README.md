@@ -120,9 +120,9 @@ This option, if false, will not delete the reports or screenshots before each te
 
 Default is <code>true</code>
 
-### HidePassResult (optional)
+### showPassed (optional)
 
-This option, if true, will show only failures. 
+This option, if false, will show only failures. 
 
 <pre><code>jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
    ....
