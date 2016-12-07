@@ -100,14 +100,14 @@ Default is <code>htmlReport.html</code>
 
 ### Consolidate and ConsolidateAll (optional)
 
-This option allow you to create diferent HTML for each test suite.
+This option allow you to create a single file for each reporter.
 
 <pre><code>jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
-   consolidate: true,
-   consolidateAll: true
+   consolidate: false,
+   consolidateAll: false
 }));</code></pre>
 
-Default is <code>false</code>
+Default is <code>true</code>
 
 ### CleanDestination (optional)
 
