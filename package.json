@@ -1,7 +1,7 @@
 {
   "name": "protractor-jasmine2-html-reporter",
   "version": "0.0.6",
-  "description": "HTML reporter for Jasmine2 and Protractor",
+  "description": "HTML reporter for Jasmine and Protractor. It will generate beautiful and useful report for your web apps.",
   "main": "index.js",
   "scripts": {
     "test": "protractor protractor.config.js"
@@ -12,13 +12,14 @@
     "postinstall": "./node_modules/protractor/bin/webdriver-manager update"
   },
   "keywords": [
-    "jasmine2",
+    "jasmine",
+    "jasmine 2",
     "protractor",
     "reporter",
     "html",
     "test",
     "functional testing",
-    "screenshots",
+    "screenshot",
     "end2end",
     "bdd"
   ],
