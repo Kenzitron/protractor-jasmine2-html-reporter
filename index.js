@@ -20,7 +20,7 @@ function isSkipped(obj) { return obj.status === "pending"; }
 function isDisabled(obj) { return obj.status === "disabled"; }
 function parseDecimalRoundAndFixed(num,dec){
     var d =  Math.pow(10,dec);
-    return (Math.round(num * d) / d).toFixed(dec);
+    return isNaN((Math.round(num * d) / d).toFixed(dec)) === true ? 0 : (Math.round(num * d) / d).toFixed(dec);
 }
 function extend(dupe, obj) { // performs a shallow copy of all props of `obj` onto `dupe`
     for (var prop in obj) {
@@ -87,6 +87,7 @@ function Jasmine2HTMLReporter(options) {
     self.consolidateAll = self.consolidate !== false && (options.consolidateAll === UNDEFINED ? true : options.consolidateAll);
     self.filePrefix = options.filePrefix || (self.consolidateAll ? 'htmlReport' : 'htmlReport-');
     self.cleanDestination = options.cleanDestination === UNDEFINED ? true : options.cleanDestination;
+    self.showPassed = options.showPassed === UNDEFINED ? true : options.showPassed;
 
     var suites = [],
         currentSuite = null,
@@ -308,12 +309,18 @@ function Jasmine2HTMLReporter(options) {
                 html += expectation.message + '<span style="padding:0 1em;color:red;">&#10007;</span>';
                 html += '</li>';
             });
-            _.each(spec.passedExpectations, function(expectation){
-                html += '<li>';
-                html += expectation.message + '<span style="padding:0 1em;color:green;">&#10003;</span>';
-                html += '</li>';
-            });
+            if(self.showPassed === true){
+                _.each(spec.passedExpectations, function(expectation){
+                    html += '<li>';
+                    html += expectation.message + '<span style="padding:0 1em;color:green;">&#10003;</span>';
+                    html += '</li>';
+                });
+            }
             html += '</ul></div>';
+        }
+        else{
+            html += '<span style="padding:0 1em;color:red;">***Skipped***</span>';
+            html += '</div>';
         }
         return html;
     }

@@ -119,3 +119,14 @@ This option, if false, will not delete the reports or screenshots before each te
 }));</code></pre>
 
 Default is <code>true</code>
+
+### showPassed (optional)
+
+This option, if false, will show only failures. 
+
+<pre><code>jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
+   ....
+   showPassed: false
+}));</code></pre>
+
+Default is <code>true</code>
