@@ -86,6 +86,7 @@ function Jasmine2HTMLReporter(options) {
     self.consolidate = options.consolidate === UNDEFINED ? true : options.consolidate;
     self.consolidateAll = self.consolidate !== false && (options.consolidateAll === UNDEFINED ? true : options.consolidateAll);
     self.filePrefix = options.filePrefix || (self.consolidateAll ? 'htmlReport' : 'htmlReport-');
+    self.cleanDestination = options.cleanDestination === UNDEFINED ? true : options.cleanDestination;
 
     var suites = [],
         currentSuite = null,
@@ -113,8 +114,9 @@ function Jasmine2HTMLReporter(options) {
         exportObject.startTime = new Date();
         self.started = true;
 
-        //Delete previous screenshoots
-        rmdir(self.savePath);
+        //Delete previous reports unless cleanDirectory is false
+        if (self.cleanDestination)
+            rmdir(self.savePath);
 
     };
     self.suiteStarted = function(suite) {
