@@ -166,7 +166,7 @@ Default is <code>empty</code>
 
 ### fileNameSuffix (optional)
 
-Prefix used after the name of the report
+Suffix used after the name of the report
 
 <pre><code>jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
    ....
