@@ -8,7 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kenzitron/protractor-jasmine2-html-reporter"
+    "url": "https://github.com/Kenzitron/protractor-jasmine2-html-reporter",
+    "postinstall": "./node_modules/protractor/bin/webdriver-manager update"
   },
   "keywords": [
     "jasmine2",
@@ -27,13 +28,14 @@
     "url": "https://github.com/Kenzitron/protractor-jasmine2-html-reporter/issues"
   },
   "dependencies": {
-    "hat": "0.0.3",
-    "lodash": "^4.0.0",
+    "async": "^2.1.4",
+    "hat": "^0.0.3",
+    "lodash": "^4.17.0",
     "mkdirp": "^0.5.0",
     "string.prototype.startswith": "^0.2.0"
   },
   "devDependencies": {
-    "jasmine": "^2.4.1",
-    "protractor": "^3.1.1"
+    "jasmine": "^2.5.2",
+    "phantomjs": "^2.1.7"
   }
 }

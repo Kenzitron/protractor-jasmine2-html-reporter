@@ -2,6 +2,7 @@ var fs     = require('fs'),
     mkdirp = require('mkdirp'),
     _      = require('lodash'),
     path   = require('path'),
+    async  = require('async'),
     hat    = require('hat');
 
 require('string.prototype.startswith');
@@ -142,6 +143,7 @@ function Jasmine2HTMLReporter(options) {
         spec._suite = currentSuite;
         currentSuite._specs.push(spec);
     };
+
     self.specDone = function(spec) {
         spec = getSpec(spec);
         spec._endTime = new Date();
@@ -159,19 +161,17 @@ function Jasmine2HTMLReporter(options) {
                 spec.screenshot = sanitizeFilename(spec.description) + '.png';
 
             browser.takeScreenshot().then(function (png) {
-                browser.getCapabilities().then(function (capabilities) {
-                    var screenshotPath;
+                var screenshotPath = path.join(
+                    self.savePath,
+                    self.screenshotsFolder,
+                    spec.screenshot
+                );
 
-
-                    //Folder structure and filename
-                    screenshotPath = path.join(self.savePath + self.screenshotsFolder, spec.screenshot);
-
-                    mkdirp(path.dirname(screenshotPath), function (err) {
-                        if (err) {
-                            throw new Error('Could not create directory for ' + screenshotPath);
-                        }
-                        writeScreenshot(png, screenshotPath);
-                    });
+                mkdirp(path.dirname(screenshotPath), function (err) {
+                    if (err) {
+                        throw new Error('Could not create directory for ' + screenshotPath);
+                    }
+                    writeScreenshot(png, screenshotPath);
                 });
             });
         }
@@ -187,6 +187,7 @@ function Jasmine2HTMLReporter(options) {
         suite._endTime = new Date();
         currentSuite = suite._parent;
     };
+
     self.jasmineDone = function() {
         if (currentSuite) {
             // focused spec (fit) -- suiteDone was never called
