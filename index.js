@@ -7,7 +7,7 @@ var fs     = require('fs'),
 
 require('string.prototype.startswith');
 
-var UNDEFINED, exportObject = exports;
+var UNDEFINED, exportObject = exports, reportDate;
 
 function sanitizeFilename(name){
     name = name.replace(/\s+/gi, '-'); // Replace white space with dash
@@ -69,6 +69,19 @@ function rmdir(dir) {
     }catch (e) { log("problem trying to remove a folder:" + dir); }
 }
 
+function getReportDate(){
+    if (reportDate === undefined)
+        reportDate = new Date();
+    return reportDate.getFullYear() + '' +
+            (reportDate.getMonth() + 1) +
+            reportDate.getDate() + ' ' +
+            reportDate.getHours() + '' +
+            reportDate.getMinutes() + '' +
+            reportDate.getSeconds() + ',' +
+            reportDate.getMilliseconds();
+}
+
+
 function Jasmine2HTMLReporter(options) {
 
     var self = this;
@@ -85,7 +98,11 @@ function Jasmine2HTMLReporter(options) {
     self.fixedScreenshotName = options.fixedScreenshotName === UNDEFINED ? false : options.fixedScreenshotName;
     self.consolidate = options.consolidate === UNDEFINED ? true : options.consolidate;
     self.consolidateAll = self.consolidate !== false && (options.consolidateAll === UNDEFINED ? true : options.consolidateAll);
-    self.filePrefix = options.filePrefix || (self.consolidateAll ? 'htmlReport' : 'htmlReport-');
+    self.fileNameSeparator = options.fileNameSeparator === UNDEFINED ? '-' : options.fileNameSeparator;
+    self.fileNamePrefix = options.fileNamePrefix === UNDEFINED ? '' : options.fileNamePrefix;
+    self.fileNameSuffix = options.fileNameSuffix === UNDEFINED ? '' : options.fileNameSuffix;
+    self.fileNameDateSuffix = options.fileNameDateSuffix === UNDEFINED ? false : options.fileNameDateSuffix;
+    self.fileName = options.fileName === UNDEFINED ? 'htmlReport' : options.fileName;
     self.cleanDestination = options.cleanDestination === UNDEFINED ? true : options.cleanDestination;
     self.showPassed = options.showPassed === UNDEFINED ? true : options.showPassed;
 
@@ -108,6 +125,26 @@ function Jasmine2HTMLReporter(options) {
     function getSpec(spec) {
         __specs[spec.id] = extend(__specs[spec.id] || {}, spec);
         return __specs[spec.id];
+    }
+
+    function getReportFilename(specName){
+        var name = '';
+        console.log(self.fileNamePrefix);
+        if (self.fileNamePrefix)
+            name += self.fileNamePrefix + self.fileNameSeparator;
+
+        name += self.fileName;
+
+        if (specName !== undefined)
+            name += self.fileNameSeparator + specName;
+
+        if (self.fileNameSuffix)
+            name += self.fileNameSeparator + self.fileNameSuffix;
+
+        if (self.fileNameDateSuffix)
+            name += self.fileNameSeparator + getReportDate();
+
+        return name;
     }
 
     self.jasmineStarted = function(summary) {
@@ -203,7 +240,7 @@ function Jasmine2HTMLReporter(options) {
         }
         // if we have anything to write here, write out the consolidated file
         if (output) {
-            wrapOutputAndWriteFile(self.filePrefix, output);
+            wrapOutputAndWriteFile(getReportFilename(), output);
         }
         //log("Specs skipped but not reported (entire suite skipped or targeted to specific specs)", totalSpecsDefined - totalSpecsExecuted + totalSpecsDisabled);
 
@@ -228,7 +265,7 @@ function Jasmine2HTMLReporter(options) {
 
     /******** Helper functions with closure access for simplicity ********/
     function generateFilename(suite) {
-        return self.filePrefix + getFullyQualifiedSuiteName(suite, true) + '.html';
+        return getReportFilename(getFullyQualifiedSuiteName(suite, true));
     }
 
     function getFullyQualifiedSuiteName(suite, isFilename) {
@@ -365,9 +402,10 @@ function Jasmine2HTMLReporter(options) {
     };
 
     // To remove complexity and be more DRY about the silly preamble and <testsuites> element
-    var prefix = '<!DOCTYPE html><html><head lang=en><meta charset=UTF-8><title></title><style>body{font-family:"open_sans",sans-serif}.suite{width:100%;overflow:auto}.suite .stats{margin:0;width:90%;padding:0}.suite .stats li{display:inline;list-style-type:none;padding-right:20px}.suite h2{margin:0}.suite header{margin:0;padding:5px 0 5px 5px;background:#003d57;color:white}.spec{width:100%;overflow:auto;border-bottom:1px solid #e5e5e5}.spec:hover{background:#e8f3fb}.spec h3{margin:5px 0}.spec .description{margin:1% 2%;width:65%;float:left}.spec .resume{width:29%;margin:1%;float:left;text-align:center}</style></head>';
+    var prefix = '<!DOCTYPE html><html><head lang=en><meta charset=UTF-8><title>Test Report -  ' + getReportDate() + '</title><style>body{font-family:"open_sans",sans-serif}.suite{width:100%;overflow:auto}.suite .stats{margin:0;width:90%;padding:0}.suite .stats li{display:inline;list-style-type:none;padding-right:20px}.suite h2{margin:0}.suite header{margin:0;padding:5px 0 5px 5px;background:#003d57;color:white}.spec{width:100%;overflow:auto;border-bottom:1px solid #e5e5e5}.spec:hover{background:#e8f3fb}.spec h3{margin:5px 0}.spec .description{margin:1% 2%;width:65%;float:left}.spec .resume{width:29%;margin:1%;float:left;text-align:center}</style></head>';
         prefix += '<body><section>';
     var suffix = '\n</section></body></html>';
+
     function wrapOutputAndWriteFile(filename, text) {
         if (filename.substr(-5) !== '.html') { filename += '.html'; }
         self.writeFile(filename, (prefix + text + suffix));

@@ -1,6 +1,6 @@
 xdescribe('SPEC 3', function() {
 
-    it('2 should add a todo', function() {
+    it('3 should add a todo', function() {
         browser.get('http://www.angularjs.org');
 
         element(by.model('todoList.todoText')).sendKeys('write a protractor test');
@@ -12,7 +12,7 @@ xdescribe('SPEC 3', function() {
         expect(todoList.get(2).getText()).toEqual('write a protractor test');
     });
 
-    it('2 second it', function() {
+    it('3 second it', function() {
         browser.get('http://www.angularjs.org');
 
         element(by.model('todoList.todoText')).sendKeys('write a protractor test');
