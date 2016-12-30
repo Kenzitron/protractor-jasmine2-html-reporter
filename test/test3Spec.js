@@ -1,4 +1,4 @@
-xdescribe('SPEC 2', function() {
+xdescribe('SPEC 3', function() {
 
     it('2 should add a todo', function() {
         browser.get('http://www.angularjs.org');

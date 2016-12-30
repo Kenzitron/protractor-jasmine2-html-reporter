@@ -319,7 +319,7 @@ function Jasmine2HTMLReporter(options) {
             html += '</ul></div>';
         }
         else{
-            html += '<span style="padding:0 1em;color:red;">***Skipped***</span>';
+            html += '<span style="padding:0 1em;color:orange;">***Skipped***</span>';
             html += '</div>';
         }
         return html;
