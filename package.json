@@ -24,6 +24,12 @@
     "bdd"
   ],
   "author": "Alejandro Asensio <alejandro@kenzilab.com> (http://www.kenzilab.com/)",
+  "contributors": [
+    "Calin Fraser <calinfraser@gmail.com> (https://github.com/kaliayev)",
+    "Vasanth K <vasanth.k@perfomatix.com> (https://github.com/vasanth5738)",
+    "Chris Rudmin (https://github.com/chris-rudmin)"
+
+  ],
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/Kenzitron/protractor-jasmine2-html-reporter/issues"
