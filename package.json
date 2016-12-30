@@ -1,6 +1,6 @@
 {
   "name": "protractor-jasmine2-html-reporter",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "HTML reporter for Jasmine and Protractor. It will generate beautiful and useful report for your web apps.",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,6 @@
     "Calin Fraser <calinfraser@gmail.com> (https://github.com/kaliayev)",
     "Vasanth K <vasanth.k@perfomatix.com> (https://github.com/vasanth5738)",
     "Chris Rudmin (https://github.com/chris-rudmin)"
-
   ],
   "license": "BSD-2-Clause",
   "bugs": {
